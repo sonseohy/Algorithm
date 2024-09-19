@@ -29,3 +29,24 @@ memo = [0] * (N+1)
 result = 1e6 + 1
 one(N, 0)
 print(result)
+
+# GPT
+def make_one(n):
+    memo = [0] * (n + 1)
+
+    for i in range(2, n + 1):
+        # 1을 빼는 경우
+        memo[i] = memo[i - 1] + 1
+        
+        # 2로 나누는 경우
+        if i % 2 == 0:
+            memo[i] = min(memo[i], memo[i // 2] + 1)
+
+        # 3으로 나누는 경우
+        if i % 3 == 0:
+            memo[i] = min(memo[i], memo[i // 3] + 1)
+
+    return memo[n]
+
+N = int(input())
+print(make_one(N))
