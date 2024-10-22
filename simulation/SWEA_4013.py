@@ -55,14 +55,14 @@ def move_gear(n, d):
             if n == 3 and state == [True, 0, True]: # 예외 경우2
                 break
         else:
-            if (n == 2 and rotate_lst[3] == 0) or (n == 3 and rotate_lst[2] == 0):  # 
+            if (n == 2 and rotate_lst[3] == 0) or (n == 3 and rotate_lst[2] == 0):  # 돌리는 자석이 2이고, 1과의 state가 False이면 더 이상 회전을 하지 않고 break되어 3과 state가 true임에도 돌리지 않고 끝남, 따라서 state가 False지만 rotate_lst[3]이 0으로 회전여부를 확인하지 않았다면 i를 1 더해 state 상태를 한칸 옮기고 continue로 3번 자석과의 회전 진행
                 i += 1
                 continue
             break
         rotate_lst[check] = 1   # 회전한 자석 체크
         i += 1
 
-
+    print(GEARS)
 
 T = int(input())
 
@@ -81,3 +81,48 @@ for test_case in range(1, T+1):
             result += 2 ** i
 
     print(f'#{test_case} {result}')
+
+
+"""
+# 스터디에서 가져온 코드 : 간단 ver
+def rotate(arr, direction):
+    if direction == 1:  # 시계 방향
+        arr.insert(0, arr.pop())
+    else:  # 반시계 방향
+        arr.append(arr.pop(0))
+
+def chain_action(num, rotation):
+    rotations = [0] * 4
+    rotations[num - 1] = rotation
+
+    # 오른쪽 톱니바퀴
+    for i in range(num - 1, 3):
+        if arr[i][2] != arr[i + 1][6]:
+            rotations[i + 1] = -rotations[i]
+
+    # 왼쪽 톱니바퀴
+    for i in range(num - 1, 0, -1):
+        if arr[i][6] != arr[i - 1][2]:
+            rotations[i - 1] = -rotations[i]
+
+    for i in range(4):
+        if rotations[i] != 0:
+            rotate(arr[i], rotations[i])
+
+T = int(input())
+for tc in range(1, T + 1):
+    K = int(input())
+    arr = [list(map(int, input().split())) for _ in range(4)]
+
+    for _ in range(K):
+        num, rotation = map(int, input().split())
+        chain_action(num, rotation)
+		
+		# score = 0
+		# for i in range(len(arr)):
+		# 	if arr[i][0] == 1:
+		# 		score += 2**i
+		
+    score = sum(2**i for i in range(4) if arr[i][0] == 1)
+    print(f'#{tc} {score}')
+"""
